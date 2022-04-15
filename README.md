@@ -26,6 +26,15 @@ If we store large quantities of data it could be inefficient to store these valu
 }
 ```
 Instead, in Dart we could use a 64-bit integer to represent up to 64 boolean values: As long as our enum contains at most 64 values we can fit them all into one int, which can be represented as a hexadecimal string in just 8 characters.
+## Installation:
+```bash
+dart pub add enum_bit_vector
+dart pub get
+```
+Import the package:
+```dart
+import 'package:enum_bit_vector/enum_bit_vector.dart';
+```
 ## How to use:
 1. Register the Enum Type you want to create `EnumBitVectors` for. This has to happen only once during the runtime of the program, but **before** you first use the data type anywhere.
 ```dart
