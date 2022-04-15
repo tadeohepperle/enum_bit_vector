@@ -5,7 +5,7 @@ class EnumBitVector<T extends Enum> {
 
   /// Call this method for the [EnumType] want to create EnumBitVectors for.
   /// Call it **before** you create an EnumBitVector of said type.
-  /// Otherwise an exception will be thrown, when
+  /// Otherwise exceptions will be thrown, when handling the BitVector.
   static void registerEnum<F extends Enum>(List<F> values) {
     valueMap[F] = values;
   }
@@ -56,10 +56,15 @@ class EnumBitVector<T extends Enum> {
   int get hashCode => _v.hashCode;
 
   @override
-  toString() => 'EnumBitVector<$T>(${toRadixString()} = ${toSet()})';
+  String toString() => 'EnumBitVector<$T>(${toRadixString()} = ${toSet()})';
 
-  toRadixString() => _v.toRadixString(2).padLeft(64, '0');
+  String toRadixString() => _v.toRadixString(2).padLeft(64, '0');
 
+  factory EnumBitVector.fromJson(Map<String, dynamic> json) => EnumBitVector.fromInt(json['v'] as int);
+
+  Map<String, dynamic> toJson() => {'v': _v};
+
+  /// conversion logic enum set --> int
   static int _enumSetToInt<F extends Enum>(Set<F> enumSet) {
     final values = valueMap[F];
     if (values == null) _throwUnregisteredException<F>();
@@ -70,6 +75,7 @@ class EnumBitVector<T extends Enum> {
     return val;
   }
 
+  /// conversion logic int --> enum set
   static Set<F> _intToEnumSet<F extends Enum>(int value) {
     final values = valueMap[F];
     if (values == null) _throwUnregisteredException<F>();
