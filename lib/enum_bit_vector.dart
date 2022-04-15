@@ -15,17 +15,21 @@ class EnumBitVector<T extends Enum> {
     this._v,
   );
 
-  /// constructs an EnumBitVector from an int.
+  /// Constructs an EnumBitVector from an int.
   /// Make sure to call EnumBitVector.registerEnum<EnumType>(EnumType.values) before this operation!
   factory EnumBitVector.fromInt(int i) => EnumBitVector._(i);
 
-  /// constructs an EnumBitVector from a set of enum values.
+  /// Constructs an EnumBitVector from a hex String, for example: '3b4700d9'
+  /// Make sure to call EnumBitVector.registerEnum<EnumType>(EnumType.values) before this operation!
+  factory EnumBitVector.fromHexString(String hexString) => EnumBitVector.fromInt(int.parse(hexString, radix: 16));
+
+  /// Constructs an EnumBitVector from a set of enum values.
   /// Make sure to call EnumBitVector.registerEnum<EnumType>(EnumType.values) before this operation!
   factory EnumBitVector.fromSet(Set<T> set) => EnumBitVector.fromInt(_enumSetToInt(set));
 
-  /// constructs an EnumBitVector from a list of enum values.
+  /// Constructs an EnumBitVector from a list of enum values.
   /// Make sure to call EnumBitVector.registerEnum<EnumType>(EnumType.values) before this operation!
-  factory EnumBitVector.fromList(Set<T> set) => EnumBitVector.fromSet(set);
+  factory EnumBitVector.fromList(List<T> list) => EnumBitVector.fromSet(list.toSet());
 
   /// returns the set of enum values stored in the EnumBitVector
   Set<T> toSet() => _intToEnumSet(_v);
@@ -56,9 +60,11 @@ class EnumBitVector<T extends Enum> {
   int get hashCode => _v.hashCode;
 
   @override
-  String toString() => 'EnumBitVector<$T>(${toRadixString()} = ${toSet()})';
+  String toString() => 'EnumBitVector<$T>(${toBinarytring()} = ${toSet()})';
 
-  String toRadixString() => _v.toRadixString(2).padLeft(64, '0');
+  String toBinarytring() => _v.toRadixString(2).padLeft(64, '0');
+
+  String toHexString() => _v.toRadixString(16).padLeft(8, '0');
 
   factory EnumBitVector.fromJson(Map<String, dynamic> json) => EnumBitVector.fromInt(json['v'] as int);
 
