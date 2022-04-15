@@ -1,4 +1,4 @@
-# EnumBitVector - Datatype storing a set of enum values as a 64-bit integer.
+# EnumBitVector - Datatype storing a set of enum values as a 64-bit integer
 ## Motivation:
 Often we want to store a set of flags/labels. For examples which super powers a super hero has, what permissions a user has, or what labels a food item posesses.
 All those use cases can be represented by a set of enums:
@@ -65,7 +65,7 @@ final json = enumBitVector.toJson();
 final bitVector = EnumBitVector<SuperPowers>.fromJson({'v': 13});
 // will create a bitvector with int-value 13.
 ```
-### Print an EnumBitVector<T>
+### Print an EnumBitVector<T>:
 
 ```dart
 enumBitVector = EnumBitVector.fromSet({SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic});
