@@ -3,7 +3,7 @@
 Often we want to store a set of flags/labels. For examples which super powers a super hero has, what permissions a user has, or what labels a food item posesses.
 All those use cases can be represented by a set of enums:
 ```dart
-enum SuperPowers { invisibility, speed, flying, immortality, wealth}
+enum SuperPowers { flying, speed, resistance, psychic, wealth}
 batman.superPowers = {SuperPowers.wealth, SuperPowers.flying };
 
 enum Permissions { deleteFiles, inviteOthers, createMeetings}
@@ -35,8 +35,19 @@ EnumBitVector.registerEnum(SuperPowers.values);
 ```dart
 enumBitVector = EnumBitVector.fromSet({SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic});
 enumBitVector = EnumBitVector.fromList([SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic]);
-enumBitVector = EnumBitVector.fromInt(13);
+enumBitVector = EnumBitVector.fromInt(13); 
 enumBitVector = EnumBitVector.fromHexString('0000000d');
+```
+### access values:
+you can easily convert an `EnumBitVector` to a set or list of enums, to an int or a hexString again, whenever needed:
+```dart
+enumBitVector.toSet() // => {SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic}
+enumBitVector.enumSet // => {SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic}
+enumBitVector.toList() // => [SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic]
+enumBitVector.toInt() // => 13
+enumBitVector.value // => 13
+enumBitVector.toBinarytring()  // => '0000000000000000000000000000000000000000000000000000000001101';
+enumBitVector.toHexString()  // => '0000000d';
 ```
 ### JSON-conversion:
 ```dart
@@ -47,8 +58,8 @@ final bitVector = EnumBitVector<SuperPowers>.fromJson({'v': 13});
 ```
 ### printing an EnumBitVector
 
-```
+```dart
 enumBitVector = EnumBitVector.fromSet({SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic});
 print(enumBitVector);
-// prints: EnumBitVector<SuperPowers>(0000000000000000000000000000000000000000000000000000000000110100 = {SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic})
+// prints: EnumBitVector<SuperPowers>(0000000000000000000000000000000000000000000000000000000000001101 = {SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic})
 ```
