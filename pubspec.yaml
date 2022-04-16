@@ -2,7 +2,7 @@ name: enum_bit_vector
 description: Datatype storing a set of enum values as a 64-bit integer
 homepage: https://github.com/tadeohepperle/enum_bit_vector
 repository: https://github.com/tadeohepperle/enum_bit_vector
-version: 1.0.0
+version: 1.0.1
 # homepage: https://www.example.com
 
 environment:

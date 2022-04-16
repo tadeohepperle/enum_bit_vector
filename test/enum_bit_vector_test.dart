@@ -16,8 +16,9 @@ Future<void> main() async {
     'should throw exception when enum type not registered',
     () async {
       // act
+      EnumBitVector.unregisterAllEnums();
       void buildBitVectorIllegally() {
-        final enumBitVector = EnumBitVector.fromSet({SuperPowers.speed});
+        EnumBitVector.fromSet({SuperPowers.speed});
       }
 
       // assert
@@ -57,4 +58,60 @@ Future<void> main() async {
       expect(enumBitVector2, enumBitVector);
     },
   );
+
+  group('set operations', () {
+    EnumBitVector.registerEnum(SuperPowers.values);
+    // arrange
+    final bv1 = EnumBitVector.fromSet({SuperPowers.flying, SuperPowers.immortality});
+    final bv2 = EnumBitVector.fromSet({SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic});
+    test(
+      'should do substraction',
+      () async {
+        // assert
+        expect(bv1 - bv2, EnumBitVector.fromSet({SuperPowers.immortality}));
+        expect(bv1 - bv2, bv1.substract(bv2));
+        expect((bv1 - bv1).value, 0);
+      },
+    );
+
+    test(
+      'should do union',
+      () async {
+        // arrange
+        final union = EnumBitVector.fromSet({SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic, SuperPowers.immortality});
+        // assert
+        expect(bv1 + bv2, union);
+        expect(bv1 + bv2, bv2 + bv1);
+        expect(bv1 | bv2, union);
+        expect(bv1 | bv2, bv2 | bv1);
+        expect(bv1.union(bv2), union);
+        expect(bv1.union(bv2), bv2.union(bv1));
+      },
+    );
+
+    test(
+      'should do intersection',
+      () async {
+        // arrange
+        final intersection = EnumBitVector.fromSet({SuperPowers.flying});
+        // assert
+        expect(bv1 & bv2, intersection);
+        expect(bv1 & bv2, bv2 & bv1);
+        expect(bv1.intersection(bv2), intersection);
+        expect(bv1.intersection(bv2), bv2.intersection(bv1));
+      },
+    );
+  });
+
+  test('should apply add and remove operations', () {
+    EnumBitVector.registerEnum(SuperPowers.values);
+    // arrange
+    final bv1 = EnumBitVector.fromSet({SuperPowers.flying, SuperPowers.immortality});
+    final bv2 = EnumBitVector.fromSet({SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic});
+    // act
+    bv1.remove(SuperPowers.immortality);
+    expect(bv1, EnumBitVector.fromSet({SuperPowers.flying}));
+    bv1.addAll([SuperPowers.resistance, SuperPowers.psychic]);
+    expect(bv1, bv2);
+  });
 }
