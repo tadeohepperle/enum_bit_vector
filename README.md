@@ -55,7 +55,7 @@ enumBitVector.enumSet // => {SuperPowers.flying, SuperPowers.resistance, SuperPo
 enumBitVector.toList() // => [SuperPowers.flying, SuperPowers.resistance, SuperPowers.psychic]
 enumBitVector.toInt() // => 13
 enumBitVector.value // => 13
-enumBitVector.toBinarytring()  // => '0000000000000000000000000000000000000000000000000000000001101';
+enumBitVector.toBinaryString()  // => '0000000000000000000000000000000000000000000000000000000001101';
 enumBitVector.toHexString()  // => '0000000d';
 ```
 ### JSON-conversion:

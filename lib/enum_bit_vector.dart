@@ -78,9 +78,9 @@ class EnumBitVector<T extends Enum> {
   int get hashCode => _v.hashCode;
 
   @override
-  String toString() => 'EnumBitVector<$T>(${toBinarytring()} = ${toSet()})';
+  String toString() => 'EnumBitVector<$T>(${toBinaryString()} = ${toSet()})';
 
-  String toBinarytring() => _v.toRadixString(2).padLeft(64, '0');
+  String toBinaryString() => _v.toRadixString(2).padLeft(64, '0');
 
   String toHexString() => _v.toRadixString(16).padLeft(8, '0');
 

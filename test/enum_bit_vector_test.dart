@@ -37,7 +37,7 @@ Future<void> main() async {
       // assert
       expect(enumBitVector.toSet(), enumSet);
       expect(enumBitVector.toInt(), 0 + 0 + 0 + 0 + 8 + 4 + 0 + 1); // = 13
-      expect(enumBitVector.toBinarytring().endsWith("00001101"), true);
+      expect(enumBitVector.toBinaryString().endsWith("00001101"), true);
       expect(enumBitVector.toHexString(), "0000000d"); // d is 13 in hex
     },
   );
